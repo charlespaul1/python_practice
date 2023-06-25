@@ -12,15 +12,15 @@ def players_move():
     position = input('Enter a position between 1- 9:  ')
     return int(position)
 # function to validate players move on the board
-def validate_move(position):
+def valid_move(position):
     if position < 1 or position > 9:
         return False
     # calculating corresponding row and column indices
     row = (position - 1) // 3
-    column = (position -1) % 3
+    column = (position - 1) % 3
     
     # checking if the corresponding position is empty
-    if board[row][column] != '':
+    if board[row][column] != ' ':
         return False
     
     return True
@@ -50,8 +50,29 @@ def check_win(symbol):
     return False
 
 # implementing the gaming loop
-
-        
+current_player = 'X'
+ 
+while True:
+    display_board()
+    position = players_move()
     
+    if not valid_move(position):
+        print("Invalid Move, Try again")
+        continue
+        
+    update_board(position, current_player)
+    
+    if check_win(current_player):
+        display_board()
+        print(f"{current_player}, has won")
+        break
+    # checking for a tie
+    if all(cell != ' ' for row in board for cell in row):
+        display_board()
+        print("It's a tie!!")
+        break
+    # switch players
+    current_player = 'O' if current_player == 'X' else 'X'
+        
 
     
