@@ -24,6 +24,34 @@ def validate_move(position):
         return False
     
     return True
+# updating the board
+def update_board(position, symbol):
+    row = (position - 1) // 3
+    column = (position - 1) % 3
+    
+    board[row][column] = symbol
+    
+# checking for a win
+def check_win(symbol):
+    # checking for a win in the rows on the board
+    for row in board:
+        if all(cell == symbol for cell in row):
+            return True
+    # checking the columns for a win
+    for column in range(3):
+        if all (board[row][column] == symbol for row in range(3)):
+            return True
+        
+    # checking diagonals for a win
+    if board[0][0] == board[1][1] == board[2][2] == symbol:
+        return True
+    if board[0][2] == board[1][1] == board[2][0] == symbol:
+        return True
+    return False
+
+# implementing the gaming loop
+
+        
     
 
     
